@@ -1,0 +1,288 @@
+USE master;
+GO
+
+IF EXISTS (SELECT name FROM sys.databases WHERE name = N'hranitelpro')
+BEGIN
+    ALTER DATABASE hranitelpro SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE hranitelpro;
+END
+GO
+
+CREATE DATABASE hranitelpro;
+GO
+
+USE hranitelpro;
+GO
+
+DROP TABLE IF EXISTS request_visitors;
+DROP TABLE IF EXISTS requests;
+DROP TABLE IF EXISTS visitors;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS department_employees;
+DROP TABLE IF EXISTS departments;
+DROP TABLE IF EXISTS statuses;
+GO
+
+CREATE TABLE statuses (
+    id INT NOT NULL IDENTITY(1,1),
+    name VARCHAR(50) NOT NULL,
+    CONSTRAINT statuses_pkey PRIMARY KEY (id),
+    CONSTRAINT statuses_name_key UNIQUE (name)
+);
+GO
+
+CREATE TABLE departments (
+    id INT NOT NULL IDENTITY(1,1),
+    name VARCHAR(100) NOT NULL,
+    CONSTRAINT departments_pkey PRIMARY KEY (id),
+    CONSTRAINT departments_name_key UNIQUE (name)
+);
+GO
+
+CREATE TABLE department_employees (
+    id INT NOT NULL IDENTITY(1,1),
+    full_name VARCHAR(150) NOT NULL,
+    department_id INT NOT NULL,
+    CONSTRAINT department_employees_pkey PRIMARY KEY (id)
+);
+GO
+
+CREATE TABLE users (
+    id INT NOT NULL IDENTITY(1,1),
+    email VARCHAR(255) NOT NULL,
+    password_hash CHAR(32) NOT NULL,
+    registered_at DATETIME DEFAULT GETDATE(),
+    CONSTRAINT users_pkey PRIMARY KEY (id),
+    CONSTRAINT users_email_key UNIQUE (email)
+);
+GO
+
+CREATE TABLE visitors (
+    id INT NOT NULL IDENTITY(1,1),
+    last_name VARCHAR(50) NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    middle_name VARCHAR(50) NULL,
+    phone VARCHAR(20) NULL,
+    email VARCHAR(255) NOT NULL,
+    organization VARCHAR(200) NULL,
+    note TEXT NOT NULL,
+    birth_date DATE NOT NULL,
+    passport_series CHAR(4) NOT NULL,
+    passport_number CHAR(6) NOT NULL,
+    photo_path VARCHAR(500) NULL,
+    passport_scan_path VARCHAR(500) NOT NULL,
+    CONSTRAINT visitors_pkey PRIMARY KEY (id),
+    CONSTRAINT check_age CHECK (DATEDIFF(YEAR, birth_date, GETDATE()) >= 16),
+    CONSTRAINT check_passport_series CHECK (passport_series LIKE '[0-9][0-9][0-9][0-9]'),
+    CONSTRAINT check_passport_number CHECK (passport_number LIKE '[0-9][0-9][0-9][0-9][0-9][0-9]')
+);
+GO
+
+CREATE TABLE requests (
+    id INT NOT NULL IDENTITY(1,1),
+    user_id INT NOT NULL,
+    type VARCHAR(20) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    purpose TEXT NOT NULL,
+    department_id INT NOT NULL,
+    employee_id INT NOT NULL,
+    status_id INT NOT NULL DEFAULT 1,
+    rejection_reason TEXT NULL,
+    created_at DATETIME DEFAULT GETDATE(),
+    CONSTRAINT requests_pkey PRIMARY KEY (id),
+    CONSTRAINT requests_type_check CHECK (type IN ('personal', 'group'))
+);
+GO
+
+CREATE TABLE request_visitors (
+    id INT NOT NULL IDENTITY(1,1),
+    request_id INT NOT NULL,
+    visitor_id INT NOT NULL,
+    order_number INT NOT NULL,
+    CONSTRAINT request_visitors_pkey PRIMARY KEY (id),
+    CONSTRAINT request_visitors_request_id_order_number_key UNIQUE (request_id, order_number)
+);
+GO
+
+ALTER TABLE department_employees ADD CONSTRAINT department_employees_department_id_fkey FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE NO ACTION;
+GO
+
+ALTER TABLE requests ADD CONSTRAINT requests_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
+GO
+
+ALTER TABLE requests ADD CONSTRAINT requests_department_id_fkey FOREIGN KEY (department_id) REFERENCES departments(id);
+GO
+
+ALTER TABLE requests ADD CONSTRAINT requests_employee_id_fkey FOREIGN KEY (employee_id) REFERENCES department_employees(id);
+GO
+
+ALTER TABLE requests ADD CONSTRAINT requests_status_id_fkey FOREIGN KEY (status_id) REFERENCES statuses(id);
+GO
+
+ALTER TABLE request_visitors ADD CONSTRAINT request_visitors_request_id_fkey FOREIGN KEY (request_id) REFERENCES requests(id) ON DELETE CASCADE;
+GO
+
+ALTER TABLE request_visitors ADD CONSTRAINT request_visitors_visitor_id_fkey FOREIGN KEY (visitor_id) REFERENCES visitors(id) ON DELETE CASCADE;
+GO
+
+SET IDENTITY_INSERT statuses ON;
+INSERT INTO statuses (id, name) VALUES (1, 'проверка');
+INSERT INTO statuses (id, name) VALUES (2, 'одобрена');
+INSERT INTO statuses (id, name) VALUES (3, 'не одобрена');
+SET IDENTITY_INSERT statuses OFF;
+GO
+
+SET IDENTITY_INSERT departments ON;
+INSERT INTO departments (id, name) VALUES (1, 'Производство');
+INSERT INTO departments (id, name) VALUES (2, 'Сбыт');
+INSERT INTO departments (id, name) VALUES (3, 'Администрация');
+INSERT INTO departments (id, name) VALUES (4, 'Служба безопасности');
+INSERT INTO departments (id, name) VALUES (5, 'Планирование');
+INSERT INTO departments (id, name) VALUES (6, 'Общий отдел');
+INSERT INTO departments (id, name) VALUES (7, 'Охрана');
+SET IDENTITY_INSERT departments OFF;
+GO
+
+SET IDENTITY_INSERT department_employees ON;
+INSERT INTO department_employees (id, full_name, department_id) VALUES (1, 'Фомичева Авдотья Трофимовна', 1);
+INSERT INTO department_employees (id, full_name, department_id) VALUES (2, 'Гаврилова Римма Ефимовна', 2);
+INSERT INTO department_employees (id, full_name, department_id) VALUES (3, 'Носкова Наталия Прохоровна', 3);
+INSERT INTO department_employees (id, full_name, department_id) VALUES (4, 'Архипов Тимофей Васильевич', 4);
+INSERT INTO department_employees (id, full_name, department_id) VALUES (5, 'Орехова Вероника Артемовна', 5);
+INSERT INTO department_employees (id, full_name, department_id) VALUES (6, 'Савельев Павел Степанович', 6);
+INSERT INTO department_employees (id, full_name, department_id) VALUES (7, 'Чернов Всеволод Наумович', 7);
+SET IDENTITY_INSERT department_employees OFF;
+GO
+
+SET IDENTITY_INSERT users ON;
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (1, 'Radinka100@yandex.ru', 'f2eb7eac111e507e1f4310fbca48c1b4', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (2, 'Prohor156@list.ru', '6e23aa05abe3646195df7f6c06a59702', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (3, 'YUrin155@gmail.com', 'f9259b3e7f7e3dddae64f20eb0e6b971', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (4, 'Aljbina33@lenta.ru', 'b570dc22d2f243d1ff7da92cef593f91', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (5, 'Klavdiya113@live.com', '9936c8f149921d756c3c3d2ed78b30f1', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (6, 'Tamara179@live.com', '0b1341da3c137913d05e69094afbe755', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (7, 'Taras24@rambler.ru', '3fd21450485e41d8b37718ea2ff5dab8', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (8, 'Arkadij123@inbox.ru', '56f5a74d5b7013d1cd20d43d67b98c69', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (9, 'Glafira73@outlook.com', '409348a3cff8264cbcb4407e55a2eff0', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (10, 'Gavriila68@msn.com', 'b2df6c2886befac08929c56905b183c3', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (11, 'Kuzjma124@yandex.ru', 'ec5402ef81b24120e36630b2c4c4ffc7', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (12, 'Roman89@gmail.com', 'dc07a3f9e45ba90e18a2e3ecef3dcd04', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (13, 'Aleksej43@gmail.com', '06e3108cbe003a2992c866117262ee72', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (14, 'Nadezhda137@outlook.com', '019239d5a96d7d7eef8fa5f0138f4af1', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (15, 'Bronislava56@yahoo.com', '2ecef85244ac1671806d8c1936e27f0d', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (16, 'Taisiya177@lenta.ru', 'fa3507cad2500ca8f551932b44a1d0ff', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (17, 'Adelaida20@hotmail.com', 'bc5195aa7e7e9089065b57e17639b86f', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (18, 'Lev131@rambler.ru', '8d2434100b4ef155c75e2693842b21a3', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (19, 'lzaihtvkdn@bk.ru', 'af0dc9fe72a0add56dacc0124a184946', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (20, 'Lyudmila123@hotmail.com', '28af582469ee65604f082f9297b0a227', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (21, 'Taisiya176@hotmail.com', 'be630902a553ac8cf2859dd95d5b6606', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (22, 'Vera195@list.ru', '3f5b98dde208683b0815c5405a9e8dad', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (23, 'YAkov196@rambler.ru', '4ced337387b6e838a5a46e63d19ea292', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (24, 'Nina145@msn.com', '446a7f47b0850cd4f7fe00509f5d1f52', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (25, 'Leontij161@mail.ru', 'ba31a68b36b48f1d65b2cb992655ddde', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (26, 'Serafima169@yahoo.com', '3576d70bd143ae6b3285e231abc12833', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (27, 'Sergej35@inbox.ru', 'e12f4d7805d9a07087594dcd80161f4f', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (28, 'Georgij121@inbox.ru', 'f8a925501f7949bfc652f90cfe5df903', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (29, 'Elizar30@yandex.ru', '85bb40863aea1f729f74f38d9cebfa78', '2026-04-15 13:08:56.571396');
+INSERT INTO users (id, email, password_hash, registered_at) VALUES (30, 'Lana117@outlook.com', 'a5d100e6c4b1a7f695bcec7ca079b71b', '2026-04-15 13:08:56.571396');
+SET IDENTITY_INSERT users OFF;
+GO
+
+SET IDENTITY_INSERT visitors ON;
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (1, 'Степанова', 'Радинка', 'Власовна', '+7 (613) 272-60-62', 'Radinka100@yandex.ru', NULL, 'Личное посещение', '1986-10-18', '0208', '530509', NULL, '/scans/stepanova_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (2, 'Шилов', 'Прохор', 'Герасимович', '+7 (615) 594-77-66', 'Prohor156@list.ru', NULL, 'Личное посещение', '1977-10-09', '3036', '796488', NULL, '/scans/shilov_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (3, 'Кононов', 'Юрин', 'Романович', '+7 (784) 673-51-91', 'YUrin155@gmail.com', NULL, 'Личное посещение', '1971-10-08', '2747', '790512', NULL, '/scans/kononov_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (4, 'Елисеева', 'Альбина', 'Николаевна', '+7 (654) 864-77-46', 'Aljbina33@lenta.ru', NULL, 'Личное посещение', '1983-02-15', '5241', '213304', NULL, '/scans/eliseeva_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (5, 'Шарова', 'Клавдия', 'Макаровна', '+7 (822) 525-82-40', 'Klavdiya113@live.com', NULL, 'Личное посещение', '1980-07-22', '8143', '593309', NULL, '/scans/sharova_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (6, 'Сидорова', 'Тамара', 'Григорьевна', '+7 (334) 692-79-77', 'Tamara179@live.com', NULL, 'Личное посещение', '1995-11-22', '8143', '905520', NULL, '/scans/sidorova_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (7, 'Петухов', 'Тарас', 'Фадеевич', '+7 (376) 220-62-51', 'Taras24@rambler.ru', NULL, 'Личное посещение', '1991-01-05', '1609', '171096', NULL, '/scans/petuhov_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (8, 'Родионов', 'Аркадий', 'Власович', '+7 (491) 696-17-11', 'Arkadij123@inbox.ru', NULL, 'Личное посещение', '1993-08-11', '3841', '642594', NULL, '/scans/rodionov_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (9, 'Горшкова', 'Глафира', 'Валентиновна', '+7 (553) 343-38-82', 'Glafira73@outlook.com', NULL, 'Личное посещение', '1978-05-25', '9170', '402601', NULL, '/scans/gorshkova_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (10, 'Кириллова', 'Гавриила', 'Яковна', '+7 (648) 700-43-34', 'Gavriila68@msn.com', NULL, 'Личное посещение', '1992-04-26', '9438', '379667', NULL, '/scans/kirillova_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (11, 'Овчинников', 'Кузьма', 'Ефимович', '+7 (562) 866-15-27', 'Kuzjma124@yandex.ru', NULL, 'Личное посещение', '1993-08-02', '0766', '647226', NULL, '/scans/ovchinnikov_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (12, 'Беляков', 'Роман', 'Викторович', '+7 (595) 196-56-28', 'Roman89@gmail.com', NULL, 'Личное посещение', '1991-06-07', '2411', '478305', NULL, '/scans/belyakov_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (13, 'Лыткин', 'Алексей', 'Максимович', '+7 (994) 353-29-52', 'Aleksej43@gmail.com', NULL, 'Личное посещение', '1996-03-07', '2383', '259825', NULL, '/scans/lytkin_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (14, 'Шубина', 'Надежда', 'Викторовна', '+7 (736) 488-66-95', 'Nadezhda137@outlook.com', NULL, 'Личное посещение', '1981-09-24', '8844', '708476', NULL, '/scans/shubina_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (15, 'Зиновьева', 'Бронислава', 'Викторовна', '+7 (778) 565-12-18', 'Bronislava56@yahoo.com', NULL, 'Личное посещение', '1981-03-19', '6736', '319423', NULL, '/scans/zinovieva_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (16, 'Самойлова', 'Таисия', 'Гермоновна', '+7 (891) 555-81-44', 'Taisiya177@lenta.ru', NULL, 'Групповое посещение', '1979-11-14', '5193', '897719', NULL, '/scans/samoylova_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (17, 'Ситникова', 'Аделаида', 'Гермоновна', '+7 (793) 736-70-31', 'Adelaida20@hotmail.com', NULL, 'Групповое посещение', '1979-01-21', '7561', '148016', NULL, '/scans/sitnikova_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (18, 'Исаев', 'Лев', 'Юлианович', '+7 (675) 593-89-30', 'Lev131@rambler.ru', NULL, 'Групповое посещение', '1994-08-05', '1860', '680004', NULL, '/scans/isaev_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (19, 'Никифоров', 'Даниил', 'Степанович', '+7 (384) 358-77-82', 'Daniil198@bk.ru', NULL, 'Групповое посещение', '1970-12-13', '4557', '999958', NULL, '/scans/nikiforov_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (20, 'Титова', 'Людмила', 'Якововна', '+7 (221) 729-16-84', 'Lyudmila123@hotmail.com', NULL, 'Групповое посещение', '1976-08-21', '7715', '639425', NULL, '/scans/titova_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (21, 'Абрамова', 'Таисия', 'Дмитриевна', '+7 (528) 312-18-20', 'Taisiya176@hotmail.com', NULL, 'Групповое посещение', '1982-11-20', '7310', '893510', NULL, '/scans/abramova_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (22, 'Кузьмина', 'Вера', 'Максимовна', '+7 (598) 583-53-45', 'Vera195@list.ru', NULL, 'Групповое посещение', '1989-12-10', '3537', '982933', NULL, '/scans/kuzmina_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (23, 'Мартынов', 'Яков', 'Ростиславович', '+7 (546) 159-67-33', 'YAkov196@rambler.ru', NULL, 'Групповое посещение', '1976-12-05', '1793', '986063', NULL, '/scans/martynov_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (24, 'Евсеева', 'Нина', 'Павловна', '+7 (833) 521-31-50', 'Nina145@msn.com', NULL, 'Групповое посещение', '1994-09-26', '9323', '745717', NULL, '/scans/evseeva_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (25, 'Голубев', 'Леонтий', 'Вячеславович', '+7 (160) 527-57-41', 'Leontij161@mail.ru', NULL, 'Групповое посещение', '1990-10-03', '1059', '822077', NULL, '/scans/golubev_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (26, 'Карпова', 'Серафима', 'Михаиловна', '+7 (459) 930-91-70', 'Serafima169@yahoo.com', NULL, 'Групповое посещение', '1989-11-19', '7034', '858987', NULL, '/scans/karpova_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (27, 'Орехов', 'Сергей', 'Емельянович', '+7 (669) 603-29-87', 'Sergej35@inbox.ru', NULL, 'Групповое посещение', '1972-02-11', '3844', '223682', NULL, '/scans/orehov_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (28, 'Исаев', 'Георгий', 'Павлович', '+7 (678) 516-36-86', 'Georgij121@inbox.ru', NULL, 'Групповое посещение', '1987-08-11', '4076', '629809', NULL, '/scans/isaev_georgiy_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (29, 'Богданов', 'Елизар', 'Артемович', '+7 (165) 768-30-97', 'Elizar30@yandex.ru', NULL, 'Групповое посещение', '1978-02-02', '0573', '198559', NULL, '/scans/bogdanov_passport.pdf');
+INSERT INTO visitors (id, last_name, first_name, middle_name, phone, email, organization, note, birth_date, passport_series, passport_number, photo_path, passport_scan_path) VALUES (30, 'Тихонова', 'Лана', 'Семеновна', '+7 (478) 467-75-15', 'Lana117@outlook.com', NULL, 'Групповое посещение', '1990-07-24', '8761', '609740', NULL, '/scans/tihonova_passport.pdf');
+SET IDENTITY_INSERT visitors OFF;
+GO
+
+SET IDENTITY_INSERT requests ON;
+INSERT INTO requests (id, user_id, type, start_date, end_date, purpose, department_id, employee_id, status_id, rejection_reason, created_at) VALUES (1, 1, 'personal', '2023-04-24', '2023-04-25', 'Личное посещение', 1, 1, 2, NULL, '2026-04-15 13:08:56.571396');
+INSERT INTO requests (id, user_id, type, start_date, end_date, purpose, department_id, employee_id, status_id, rejection_reason, created_at) VALUES (2, 2, 'personal', '2023-04-24', '2023-04-25', 'Личное посещение', 2, 2, 2, NULL, '2026-04-15 13:08:56.571396');
+INSERT INTO requests (id, user_id, type, start_date, end_date, purpose, department_id, employee_id, status_id, rejection_reason, created_at) VALUES (3, 3, 'personal', '2023-04-24', '2023-04-25', 'Личное посещение', 3, 3, 2, NULL, '2026-04-15 13:08:56.571396');
+INSERT INTO requests (id, user_id, type, start_date, end_date, purpose, department_id, employee_id, status_id, rejection_reason, created_at) VALUES (4, 4, 'personal', '2023-04-25', '2023-04-26', 'Личное посещение', 1, 1, 2, NULL, '2026-04-15 13:08:56.571396');
+INSERT INTO requests (id, user_id, type, start_date, end_date, purpose, department_id, employee_id, status_id, rejection_reason, created_at) VALUES (5, 5, 'personal', '2023-04-25', '2023-04-26', 'Личное посещение', 2, 2, 2, NULL, '2026-04-15 13:08:56.571396');
+INSERT INTO requests (id, user_id, type, start_date, end_date, purpose, department_id, employee_id, status_id, rejection_reason, created_at) VALUES (6, 6, 'personal', '2023-04-25', '2023-04-26', 'Личное посещение', 3, 3, 2, NULL, '2026-04-15 13:08:56.571396');
+INSERT INTO requests (id, user_id, type, start_date, end_date, purpose, department_id, employee_id, status_id, rejection_reason, created_at) VALUES (7, 7, 'personal', '2023-04-26', '2023-04-27', 'Личное посещение', 1, 1, 2, NULL, '2026-04-15 13:08:56.571396');
+INSERT INTO requests (id, user_id, type, start_date, end_date, purpose, department_id, employee_id, status_id, rejection_reason, created_at) VALUES (8, 8, 'personal', '2023-04-26', '2023-04-27', 'Личное посещение', 2, 2, 2, NULL, '2026-04-15 13:08:56.571396');
+INSERT INTO requests (id, user_id, type, start_date, end_date, purpose, department_id, employee_id, status_id, rejection_reason, created_at) VALUES (9, 9, 'personal', '2023-04-26', '2023-04-27', 'Личное посещение', 3, 3, 2, NULL, '2026-04-15 13:08:56.571396');
+INSERT INTO requests (id, user_id, type, start_date, end_date, purpose, department_id, employee_id, status_id, rejection_reason, created_at) VALUES (10, 10, 'personal', '2023-04-27', '2023-04-28', 'Личное посещение', 1, 1, 2, NULL, '2026-04-15 13:08:56.571396');
+INSERT INTO requests (id, user_id, type, start_date, end_date, purpose, department_id, employee_id, status_id, rejection_reason, created_at) VALUES (11, 11, 'personal', '2023-04-27', '2023-04-28', 'Личное посещение', 2, 2, 2, NULL, '2026-04-15 13:08:56.571396');
+INSERT INTO requests (id, user_id, type, start_date, end_date, purpose, department_id, employee_id, status_id, rejection_reason, created_at) VALUES (12, 12, 'personal', '2023-04-27', '2023-04-28', 'Личное посещение', 3, 3, 2, NULL, '2026-04-15 13:08:56.571396');
+INSERT INTO requests (id, user_id, type, start_date, end_date, purpose, department_id, employee_id, status_id, rejection_reason, created_at) VALUES (13, 13, 'personal', '2023-04-28', '2023-04-29', 'Личное посещение', 1, 1, 2, NULL, '2026-04-15 13:08:56.571396');
+INSERT INTO requests (id, user_id, type, start_date, end_date, purpose, department_id, employee_id, status_id, rejection_reason, created_at) VALUES (14, 14, 'personal', '2023-04-28', '2023-04-29', 'Личное посещение', 2, 2, 2, NULL, '2026-04-15 13:08:56.571396');
+INSERT INTO requests (id, user_id, type, start_date, end_date, purpose, department_id, employee_id, status_id, rejection_reason, created_at) VALUES (15, 15, 'personal', '2023-04-28', '2023-04-29', 'Личное посещение', 3, 3, 2, NULL, '2026-04-15 13:08:56.571396');
+INSERT INTO requests (id, user_id, type, start_date, end_date, purpose, department_id, employee_id, status_id, rejection_reason, created_at) VALUES (16, 16, 'group', '2023-04-24', '2023-04-25', 'Экскурсия на производство', 1, 1, 2, NULL, '2026-04-15 13:08:56.571396');
+INSERT INTO requests (id, user_id, type, start_date, end_date, purpose, department_id, employee_id, status_id, rejection_reason, created_at) VALUES (17, 23, 'group', '2023-04-24', '2023-04-25', 'Экскурсия на производство (вторая группа)', 1, 1, 2, NULL, '2026-04-15 13:08:56.571396');
+SET IDENTITY_INSERT requests OFF;
+GO
+
+SET IDENTITY_INSERT request_visitors ON;
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (1, 1, 1, 1);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (2, 2, 2, 1);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (3, 3, 3, 1);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (4, 4, 4, 1);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (5, 5, 5, 1);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (6, 6, 6, 1);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (7, 7, 7, 1);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (8, 8, 8, 1);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (9, 9, 9, 1);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (10, 10, 10, 1);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (11, 11, 11, 1);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (12, 12, 12, 1);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (13, 13, 13, 1);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (14, 14, 14, 1);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (15, 15, 15, 1);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (16, 16, 16, 1);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (17, 16, 17, 2);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (18, 16, 18, 3);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (19, 16, 19, 4);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (20, 16, 20, 5);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (21, 16, 21, 6);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (22, 16, 22, 7);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (23, 17, 23, 1);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (24, 17, 24, 2);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (25, 17, 25, 3);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (26, 17, 26, 4);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (27, 17, 27, 5);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (28, 17, 28, 6);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (29, 17, 29, 7);
+INSERT INTO request_visitors (id, request_id, visitor_id, order_number) VALUES (30, 17, 30, 8);
+SET IDENTITY_INSERT request_visitors OFF;
+GO
+
+SELECT 'users' AS table_name, COUNT(*) AS count FROM users
+UNION ALL SELECT 'visitors', COUNT(*) FROM visitors
+UNION ALL SELECT 'requests', COUNT(*) FROM requests
+UNION ALL SELECT 'request_visitors', COUNT(*) FROM request_visitors
+UNION ALL SELECT 'department_employees', COUNT(*) FROM department_employees
+UNION ALL SELECT 'departments', COUNT(*) FROM departments
+UNION ALL SELECT 'statuses', COUNT(*) FROM statuses;
+GO
