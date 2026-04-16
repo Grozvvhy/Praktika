@@ -1,0 +1,5 @@
+C:\Kislicyn\SaverH\SaverH\obj\Debug\SaverH.csproj.AssemblyReference.cache
+C:\Kislicyn\SaverH\SaverH\obj\Debug\MainWindow.g.cs
+C:\Kislicyn\SaverH\SaverH\obj\Debug\App.g.cs
+C:\Kislicyn\SaverH\SaverH\obj\Debug\SaverH_MarkupCompile.cache
+C:\Kislicyn\SaverH\SaverH\obj\Debug\SaverH_MarkupCompile.lref

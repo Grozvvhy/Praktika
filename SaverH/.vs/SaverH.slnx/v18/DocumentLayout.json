@@ -1,0 +1,257 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Kislicyn\\SaverH\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0EC32920-F958-42A6-AA4E-A86AD148FCC7}|SaverH\\SaverH.csproj|C:\\Kislicyn\\SaverH\\saverh\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0EC32920-F958-42A6-AA4E-A86AD148FCC7}|SaverH\\SaverH.csproj|solutionrelative:saverh\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EC32920-F958-42A6-AA4E-A86AD148FCC7}|SaverH\\SaverH.csproj|C:\\Kislicyn\\SaverH\\saverh\\services\\databaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0EC32920-F958-42A6-AA4E-A86AD148FCC7}|SaverH\\SaverH.csproj|solutionrelative:saverh\\services\\databaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EC32920-F958-42A6-AA4E-A86AD148FCC7}|SaverH\\SaverH.csproj|c:\\kislicyn\\saverh\\saverh\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0EC32920-F958-42A6-AA4E-A86AD148FCC7}|SaverH\\SaverH.csproj|solutionrelative:saverh\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EC32920-F958-42A6-AA4E-A86AD148FCC7}|SaverH\\SaverH.csproj|c:\\kislicyn\\saverh\\saverh\\forms\\mainform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0EC32920-F958-42A6-AA4E-A86AD148FCC7}|SaverH\\SaverH.csproj|solutionrelative:saverh\\forms\\mainform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EC32920-F958-42A6-AA4E-A86AD148FCC7}|SaverH\\SaverH.csproj|c:\\kislicyn\\saverh\\saverh\\forms\\visitorform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0EC32920-F958-42A6-AA4E-A86AD148FCC7}|SaverH\\SaverH.csproj|solutionrelative:saverh\\forms\\visitorform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EC32920-F958-42A6-AA4E-A86AD148FCC7}|SaverH\\SaverH.csproj|c:\\kislicyn\\saverh\\saverh\\visitorform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0EC32920-F958-42A6-AA4E-A86AD148FCC7}|SaverH\\SaverH.csproj|solutionrelative:saverh\\visitorform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EC32920-F958-42A6-AA4E-A86AD148FCC7}|SaverH\\SaverH.csproj|C:\\Kislicyn\\SaverH\\saverh\\models\\department.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0EC32920-F958-42A6-AA4E-A86AD148FCC7}|SaverH\\SaverH.csproj|solutionrelative:saverh\\models\\department.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EC32920-F958-42A6-AA4E-A86AD148FCC7}|SaverH\\SaverH.csproj|C:\\Kislicyn\\SaverH\\saverh\\models\\request.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0EC32920-F958-42A6-AA4E-A86AD148FCC7}|SaverH\\SaverH.csproj|solutionrelative:saverh\\models\\request.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EC32920-F958-42A6-AA4E-A86AD148FCC7}|SaverH\\SaverH.csproj|C:\\Kislicyn\\SaverH\\saverh\\models\\visitor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0EC32920-F958-42A6-AA4E-A86AD148FCC7}|SaverH\\SaverH.csproj|solutionrelative:saverh\\models\\visitor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EC32920-F958-42A6-AA4E-A86AD148FCC7}|SaverH\\SaverH.csproj|C:\\Kislicyn\\SaverH\\saverh\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0EC32920-F958-42A6-AA4E-A86AD148FCC7}|SaverH\\SaverH.csproj|solutionrelative:saverh\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EC32920-F958-42A6-AA4E-A86AD148FCC7}|SaverH\\SaverH.csproj|C:\\Kislicyn\\SaverH\\saverh\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{0EC32920-F958-42A6-AA4E-A86AD148FCC7}|SaverH\\SaverH.csproj|solutionrelative:saverh\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0EC32920-F958-42A6-AA4E-A86AD148FCC7}|SaverH\\SaverH.csproj|C:\\Kislicyn\\SaverH\\saverh\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0EC32920-F958-42A6-AA4E-A86AD148FCC7}|SaverH\\SaverH.csproj|solutionrelative:saverh\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "VisitorForm.Designer.cs",
+              "DocumentMoniker": "C:\\Kislicyn\\SaverH\\SaverH\\VisitorForm.Designer.cs",
+              "RelativeDocumentMoniker": "SaverH\\VisitorForm.Designer.cs",
+              "ToolTip": "C:\\Kislicyn\\SaverH\\SaverH\\VisitorForm.Designer.cs",
+              "RelativeToolTip": "SaverH\\VisitorForm.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBEAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T09:37:16.615Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "VisitorForm.cs",
+              "DocumentMoniker": "C:\\Kislicyn\\SaverH\\SaverH\\Forms\\VisitorForm.cs",
+              "RelativeDocumentMoniker": "SaverH\\Forms\\VisitorForm.cs",
+              "ToolTip": "C:\\Kislicyn\\SaverH\\SaverH\\Forms\\VisitorForm.cs",
+              "RelativeToolTip": "SaverH\\Forms\\VisitorForm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAwHgAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T09:36:53.658Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MainForm.Designer.cs",
+              "DocumentMoniker": "C:\\Kislicyn\\SaverH\\SaverH\\Forms\\MainForm.Designer.cs",
+              "RelativeDocumentMoniker": "SaverH\\Forms\\MainForm.Designer.cs",
+              "ToolTip": "C:\\Kislicyn\\SaverH\\SaverH\\Forms\\MainForm.Designer.cs",
+              "RelativeToolTip": "SaverH\\Forms\\MainForm.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T09:36:40.512Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MainForm.cs",
+              "DocumentMoniker": "C:\\Kislicyn\\SaverH\\SaverH\\Forms\\MainForm.cs",
+              "RelativeDocumentMoniker": "SaverH\\Forms\\MainForm.cs",
+              "ToolTip": "C:\\Kislicyn\\SaverH\\SaverH\\Forms\\MainForm.cs",
+              "RelativeToolTip": "SaverH\\Forms\\MainForm.cs",
+              "ViewState": "AgIAAL4BAAAAAAAAAADwv/0BAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T09:25:12.691Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Kislicyn\\SaverH\\SaverH\\Program.cs",
+              "RelativeDocumentMoniker": "SaverH\\Program.cs",
+              "ToolTip": "C:\\Kislicyn\\SaverH\\SaverH\\Program.cs",
+              "RelativeToolTip": "SaverH\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T07:53:35.179Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DatabaseService.cs",
+              "DocumentMoniker": "C:\\Kislicyn\\SaverH\\SaverH\\Services\\DatabaseService.cs",
+              "RelativeDocumentMoniker": "SaverH\\Services\\DatabaseService.cs",
+              "ToolTip": "C:\\Kislicyn\\SaverH\\SaverH\\Services\\DatabaseService.cs",
+              "RelativeToolTip": "SaverH\\Services\\DatabaseService.cs",
+              "ViewState": "AgIAALEBAAAAAAAAAAAiwMABAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T07:50:26.582Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Department.cs",
+              "DocumentMoniker": "C:\\Kislicyn\\SaverH\\SaverH\\Models\\Department.cs",
+              "RelativeDocumentMoniker": "SaverH\\Models\\Department.cs",
+              "ToolTip": "C:\\Kislicyn\\SaverH\\SaverH\\Models\\Department.cs",
+              "RelativeToolTip": "SaverH\\Models\\Department.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T07:50:16.821Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Request.cs",
+              "DocumentMoniker": "C:\\Kislicyn\\SaverH\\SaverH\\Models\\Request.cs",
+              "RelativeDocumentMoniker": "SaverH\\Models\\Request.cs",
+              "ToolTip": "C:\\Kislicyn\\SaverH\\SaverH\\Models\\Request.cs",
+              "RelativeToolTip": "SaverH\\Models\\Request.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T07:50:05.988Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Visitor.cs",
+              "DocumentMoniker": "C:\\Kislicyn\\SaverH\\SaverH\\Models\\Visitor.cs",
+              "RelativeDocumentMoniker": "SaverH\\Models\\Visitor.cs",
+              "ToolTip": "C:\\Kislicyn\\SaverH\\SaverH\\Models\\Visitor.cs",
+              "RelativeToolTip": "SaverH\\Models\\Visitor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T07:49:55.913Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Kislicyn\\SaverH\\SaverH\\Models\\User.cs",
+              "RelativeDocumentMoniker": "SaverH\\Models\\User.cs",
+              "ToolTip": "C:\\Kislicyn\\SaverH\\SaverH\\Models\\User.cs",
+              "RelativeToolTip": "SaverH\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T07:49:43.4Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Kislicyn\\SaverH\\SaverH\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "SaverH\\MainWindow.xaml",
+              "ToolTip": "C:\\Kislicyn\\SaverH\\SaverH\\MainWindow.xaml",
+              "RelativeToolTip": "SaverH\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-16T07:31:42.008Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Kislicyn\\SaverH\\SaverH\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "SaverH\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Kislicyn\\SaverH\\SaverH\\MainWindow.xaml.cs",
+              "RelativeToolTip": "SaverH\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T07:31:40.681Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
