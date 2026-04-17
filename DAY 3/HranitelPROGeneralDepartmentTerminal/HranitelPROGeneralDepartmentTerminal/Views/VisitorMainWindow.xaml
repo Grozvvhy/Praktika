@@ -1,0 +1,21 @@
+﻿<Window x:Class="HranitelPROGeneralDepartmentTerminal.Views.VisitorMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Личный кабинет посетителя" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <Button Content="Индивидуальная заявка" Click="IndividualRequest_Click" Width="150" Height="30" Margin="5"/>
+            <Button Content="Групповая заявка" Click="GroupRequest_Click" Width="150" Height="30" Margin="5"/>
+            <Button Content="Мои заявки" Click="MyRequests_Click" Width="150" Height="30" Margin="5"/>
+            <Button Content="Выйти" Click="Logout_Click" Width="100" Height="30" Margin="5"/>
+        </StackPanel>
+
+        <Frame x:Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden"/>
+    </Grid>
+</Window>

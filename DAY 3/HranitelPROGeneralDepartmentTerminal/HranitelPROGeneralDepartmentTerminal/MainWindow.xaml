@@ -1,0 +1,15 @@
+﻿<Window x:Class="HranitelPROGeneralDepartmentTerminal.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ХранительПРО - Выбор режима" Height="300" Width="400"
+        WindowStartupLocation="CenterScreen" ResizeMode="CanResize">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Выберите режим работы:" FontSize="16" FontWeight="Bold" Margin="0,0,0,20"/>
+            <Button Content="Вход для посетителя" Width="200" Height="40" Margin="0,10"
+                    Click="VisitorLogin_Click" FontSize="14"/>
+            <Button Content="Терминал сотрудника общего отдела" Width="200" Height="40" Margin="0,10"
+                    Click="GeneralDeptLogin_Click" FontSize="14"/>
+        </StackPanel>
+    </Grid>
+</Window>
