@@ -1,0 +1,20 @@
+﻿<Window x:Class="HranitelPROGeneralDepartmentTerminal.Views.BlacklistReasonDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Причина добавления в чёрный список" Height="300" Width="500"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Укажите причину добавления (до 5000 символов):" FontWeight="Bold" Margin="0,0,0,10"/>
+        <TextBox x:Name="ReasonTextBox" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True" 
+                 VerticalScrollBarVisibility="Auto" MaxLength="5000"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+            <Button Content="OK" Click="OkButton_Click" Width="80" Height="25" Margin="5"/>
+            <Button Content="Отмена" Click="CancelButton_Click" Width="80" Height="25" Margin="5"/>
+        </StackPanel>
+    </Grid>
+</Window>
